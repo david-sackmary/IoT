@@ -7,9 +7,10 @@ import binascii
 import time
 import json
 import urllib2
+import os
 
-# Enter your IFTTT key between the quoted below:
-ifttt_key = ''
+# Use your own IFTTT key, not this fake one
+ifttt_key = 'ePRr20Kpuy1ekB6Kkiqbbtl54zkAMbOHeDQlmuYmehv'
 
 # Each button has a MAC address.  Name them here.  These names will be used as the event name
 # when triggering the IFTTT maker channel, e.g. https://maker.ifttt.com/trigger/<nickname>/with/key/<ifttt_key>
@@ -17,6 +18,8 @@ buttons = {
     'f0272d3e5ba4' : 'gillette_doorbell',
     '74c246395926' : 'meyers',
     '747548e6b034' : 'icebreakers',
+    '747500000004' : 'dash_cottonelle',
+    '747500000005' : 'dash_huggies'
 }
 
 # Trigger a IFTTT URL where the event is the same as the strings in macs (e.g. dash_gerber)
@@ -51,9 +54,13 @@ while True:
     button_clicked = False    
     # cull out unwanted signals coming from Amazon buttons
     if source_mac != "3060237e5a80" and source_mac != "6c29955ac8c3":
+
       for button in buttons:
         if source_mac == button:
           record_trigger(buttons[source_mac])
           button_clicked = True
+          if buttons[source_mac] == 'gillette_doorbell':
+            print "here"
+            os.system("aplay -q doorbell-1.wav")
     if (button_clicked != True) and (source_ip == '0.0.0.0'):
       print "Unknown MAC detected: " + source_mac
