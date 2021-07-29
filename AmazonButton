@@ -25,7 +25,7 @@ carriers = {
 
 def sms_to_phone(message):
         # Replace the number with your own, or consider using an argument\dict for multiple people.
-        to_number = '310-462-9515{}'.format(carriers['tmobile'])
+        to_number = '310-462-5555{}'.format(carriers['tmobile'])
         auth = ('**email**', '**password**')
 
         # Establish a secure session with gmail's outgoing SMTP server using your gmail account
